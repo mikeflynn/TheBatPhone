@@ -1,31 +1,54 @@
-import sched
+import sched, random
 from gpiozero import LED, Button
 from time import sleep, time
 from pygame import mixer
 from signal import pause
+from os import listdir
+from os.path import isfile, join
 
-ringInterval = 20
+# Init
+
+devMode = True
+
+ringInterval = 60 * 5 # Five minutes
+
+if devMode:
+    ringInterval = 30
+
 led = LED(17)
 button = Button(2)
 
 onTheHook = False
 isRinging = False
 
+wavPath = '/home/pi/batphone/wavs/'
+wavFiles = [f for f in listdir(wavPath + 'answers/') if isfile(join(wavPath + 'answers/', f))]
+
 cron = sched.scheduler(time, sleep)
 mixer.init()
 
+# Functions
+
+def log(msg):
+    if devMode:
+        print(msg)
+
 def hungUp():
     global onTheHook
-    #print("Hung Up")
+    log("Hung Up")
     onTheHook = True
 
 def pickedUp():
-    #print("Picked Up")
+    log("Picked Up")
     global onTheHook
+    global isRinging
     onTheHook = False
     if isRinging == True:
+        isRinging = False
         sleep(1)
-        play()
+        play(None)
+    else:
+        play(wavPath + 'system/dialtone.wav')
 
 def shouldRing():
     """Checks if the phone should ring or not."""
@@ -35,10 +58,10 @@ def shouldRing():
 def ring(job): 
     """Rings the phone by flashing the light."""
     global isRinging
-    #print("Possibly ringining..")
+    log("Possibly ringining..")
     cron.enter(ringInterval, 1, ring, (job,))
     if shouldRing():
-        #print("Ringing!")
+        log("Ringing!")
         isRinging = True
         for x in range(0, 4):
             for x in range(0, 20):
@@ -50,11 +73,21 @@ def ring(job):
     else:
         isRinging = False
 
-def play():
+def play(file):
     """Batman picks up; Play the audio."""
-    #print("Playing audio...")
-    sound = mixer.Sound('/home/pi/batphone/wavs/batman_theme.wav')
+    log("Playing audio...")
+    if file is None:
+        global wavFiles
+        answer = wavPath + 'answers/' + random.choice(wavFiles)
+        log(answer)
+        sound = mixer.Sound(answer)
+    else:
+        sound = mixer.Sound(file)
     sound.play()
+
+# Main
+
+play(wavPath + 'system/batman_theme.wav')
 
 button.when_pressed = hungUp 
 button.when_released = pickedUp
