@@ -8,7 +8,7 @@ from os.path import isfile, join
 
 # Init
 
-devMode = True
+devMode = False
 
 ringInterval = 60 * 5 # Five minutes
 
@@ -59,7 +59,7 @@ def ring(job):
     """Rings the phone by flashing the light."""
     global isRinging
     log("Possibly ringining..")
-    cron.enter(ringInterval, 1, ring, (job,))
+    cron.enter(ringInterval + random.randint(-120, 120), 1, ring, (job,))
     if shouldRing():
         log("Ringing!")
         isRinging = True
@@ -92,7 +92,7 @@ play(wavPath + 'system/batman_theme.wav')
 button.when_pressed = hungUp 
 button.when_released = pickedUp
 
-cron.enter(ringInterval, 1, ring, (cron,))
+cron.enter(20, 1, ring, (cron,))
 cron.run()
 
 pause()
