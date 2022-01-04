@@ -15,8 +15,9 @@ ringInterval = 60 * 5 # Five minutes
 if devMode:
     ringInterval = 30
 
+reciever = Button(18)
 led = LED(17)
-button = Button(2)
+statusLed = LED(22)
 
 onTheHook = False
 isRinging = False
@@ -87,10 +88,11 @@ def play(file):
 
 # Main
 
+statusLed.on()
 play(wavPath + 'system/batman_theme.wav')
 
-button.when_pressed = hungUp 
-button.when_released = pickedUp
+reciever.when_pressed = pickedUp # Weird flipped logic because of the switch I hacked out of the original phone.
+reciever.when_released = hungUp 
 
 cron.enter(20, 1, ring, (cron,))
 cron.run()
