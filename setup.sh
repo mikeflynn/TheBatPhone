@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Install stuff
-sudo apt -y install python3-pip python-rpi.gpio python3-pygame vim git
+sudo apt -y install python3-pip python3-rpi.gpio python3-pygame vim git
 
 # Checkout the code
 cd /home/pi
