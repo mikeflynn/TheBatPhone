@@ -40,6 +40,10 @@ I happened to have a novelty phone reciever that terminated in a minijack that I
 
 Overkill, but I had a spare Raspberry Pi 3 B in my workshop and since that has a minijack audio output already, it was what I used. A better option would be a small Ardiuno (though with enough memory for the audio clips) and an audio out interface. If you do use a Raspberry Pi, I have included a [setup.sh](setup.sh) file that includes the commands needed to run to get the code I have working.
 
+**Paint:**
+
+[Rust-Oleum Enamel Cherry Red](https://www.amazon.com/Rust-Oleum-248568-Stops-12-Ounce-Cherry/dp/B003ES43D0/ref=sr_1_7?crid=3P1X26AA6SOO8&keywords=rustoleum+spray+paint+enamel+cherry+red&qid=1641365617&sprefix=rustoleum+spray+paint+enamel+cherry+red%2Caps%2C122&sr=8-7) proved to be a great color match with the phone body, and I used [a chrome paint pen](https://www.amazon.com/gp/product/B09C1SRRBW/ref=ppx_yo_dt_b_asin_title_o03_s00?ie=UTF8&psc=1) to add the detail around the LED.
+
 ## Code
 
 In it's current state the code is quickly written Python, but it works and I might go back and refine it. There are two parts: [batphone.py](batphone.py) and [shutdown.py](shutdown.py)
