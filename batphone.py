@@ -10,16 +10,11 @@ from os.path import isfile, join
 
 devMode = False
 
-ringInterval = 60 * 5 # Five minutes
-
-if devMode:
-    ringInterval = 30
-
 reciever = Button(18)
 led = LED(17)
 statusLed = LED(22)
 
-onTheHook = False
+onTheHook = True
 isRinging = False
 
 wavPath = '/home/pi/batphone/wavs/'
@@ -29,6 +24,12 @@ cron = sched.scheduler(time, sleep)
 mixer.init()
 
 # Functions
+
+def getRingInterval(devMode):
+    if devMode:
+        return 30
+    else:
+        return (60 * 5) + random.randint(-120, 120)
 
 def log(msg):
     if devMode:
@@ -53,14 +54,13 @@ def pickedUp():
 
 def shouldRing():
     """Checks if the phone should ring or not."""
-    if onTheHook == True:
-        return True
+    return onTheHook
 
 def ring(job): 
     """Rings the phone by flashing the light."""
     global isRinging
     log("Possibly ringining..")
-    cron.enter(ringInterval + random.randint(-120, 120), 1, ring, (job,))
+    cron.enter(getRingInterval(devMode), 1, ring, (job,))
     if shouldRing():
         log("Ringing!")
         isRinging = True
@@ -71,8 +71,7 @@ def ring(job):
             if onTheHook == False:
                 break;
             sleep(3)
-    else:
-        isRinging = False
+    isRinging = False
 
 def play(file):
     """Batman picks up; Play the audio."""
@@ -94,7 +93,7 @@ play(wavPath + 'system/batman_theme.wav')
 reciever.when_pressed = pickedUp # Weird flipped logic because of the switch I hacked out of the original phone.
 reciever.when_released = hungUp 
 
-cron.enter(20, 1, ring, (cron,))
+cron.enter(10, 1, ring, (cron,)) # After boot, ring right away for quick testing.
 cron.run()
 
 pause()
