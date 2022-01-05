@@ -6,25 +6,39 @@ A "working" replica of the 1960s Bat Phone.
 
 [![My Bat Phone](/images/batphone_007.jpeg)](https://www.youtube.com/watch?v=4xc30-9TLgI)
 
+(Click the picture above for a short YouTube video demo.)
+
 I have a small Batman collection and thought it would be cool to have a replica of the Bat Phone from the Adam West series. This version "rings" semi-randomly throughout the day by flashing it's red light. If you pick it up while it's ringing you can hear a clip from the show, otherwise you get a dial tone.
 
 ## Parts
 
-**Phone Base:** https://www.amazon.com/dp/B098RYL855/ref=cm_sw_em_r_mt_dp_VS4C6HZS7EKWGHEA6X09?_encoding=UTF8&psc=1
+**Phone Base:** 
 
-I removed the dial and all electronics but the reciever switch.
+[I found this model on Amazon](https://www.amazon.com/dp/B098RYL855/ref=cm_sw_em_r_mt_dp_VS4C6HZS7EKWGHEA6X09?_encoding=UTF8&psc=1) which was cheap, seemed easy to remove the parts I didn't want, and was a great classic shape. I removed the dial and all electronics but the reciever switch.
 
-**Dial Insert / LED Housing:** Designed and 3D printed myself. [Here is the STL file](models/bat_phone_insert_v3.stl).
+**Dial Insert / LED Housing:** 
 
-**On/Off Switch & Light:** A momentary button with LED I had in my workshop ([available at Adafruit](https://www.adafruit.com/product/1439)). The one I have in place is not ideal, but it works. 
+Designed and 3D printed myself. [Here is the STL file](models/bat_phone_insert_v3.stl).
 
-**Red Light:** Standard LED light you can get anywhere.
+**On/Off Switch & Light:** 
 
-**Reciever Switch:** Repurosed from the phone circuitry. I orignally had a cheap button under the reciever lever, but it was pushing back on the reciever too much, even after trying to add weight to the reciever. I removed the switch in favor of the switch from the phone and it works great, but the code is a little wonky because of how the switch worked.
+A momentary button with LED I had in my workshop ([available at Adafruit](https://www.adafruit.com/product/1439)). The one I have in place is not ideal, but it works. 
 
-**Reciever:** I happened to have a novelty phone reciever that terminated in a minijack that I recievved as a corporate gift years ago and I used that. [You can find something simliar on Amazon.](https://www.amazon.com/CellCase-Telephone-Microphone-Cellphone-Smartphone/dp/B08Y8J5LK5/ref=sr_1_2?crid=2ATWJRB1FSH6M&keywords=red+phone+receiver&qid=1641364342&sprefix=red+phone+receiver+%2Caps%2C120&sr=8-2)
+**Red Light:** 
 
-**Brains:** Overkill, but I had a spare Raspberry Pi 3 B in my workshop and since that has a minijack audio output already, it was what I used. A better option would be a small Ardiuno (though with enough memory for the audio clips) and an audio out interface. If you do use a Raspberry Pi, I have included a [setup.sh](setup.sh) file that includes the commands needed to run to get the code I have working.
+Standard LED light you can get anywhere.
+
+**Reciever Switch:** 
+
+Repurosed from the phone circuitry. I orignally had a cheap button under the reciever lever, but it was pushing back on the reciever too much, even after trying to add weight to the reciever. I removed the switch in favor of the switch from the phone and it works great, but the code is a little wonky because of how the switch worked.
+
+**Reciever:** 
+
+I happened to have a novelty phone reciever that terminated in a minijack that I recievved as a corporate gift years ago and I used that. [You can find something simliar on Amazon.](https://www.amazon.com/CellCase-Telephone-Microphone-Cellphone-Smartphone/dp/B08Y8J5LK5/ref=sr_1_2?crid=2ATWJRB1FSH6M&keywords=red+phone+receiver&qid=1641364342&sprefix=red+phone+receiver+%2Caps%2C120&sr=8-2)
+
+**Brains:** 
+
+Overkill, but I had a spare Raspberry Pi 3 B in my workshop and since that has a minijack audio output already, it was what I used. A better option would be a small Ardiuno (though with enough memory for the audio clips) and an audio out interface. If you do use a Raspberry Pi, I have included a [setup.sh](setup.sh) file that includes the commands needed to run to get the code I have working.
 
 ## Code
 
@@ -57,8 +71,6 @@ The last minute switch to the phone reciever switch!
 [![Ringing](images/batphone_005.jpeg)](images/batphone_005.jpeg)
 
 [![On the shelf](images/batphone_006.jpeg)](images/batphone_006.jpeg)
-
-[![Different angle on the shelf](images/batphone_007.jpeg)](images/batphone_007.jpeg)
 
 [![Full view of the Batman shelf](images/batphone_008.jpeg)](images/batphone_008.jpeg)
 
