@@ -78,7 +78,7 @@ def pickedUp():
         isRinging = False
         sleep(1)
         play(None)
-    elif pickupCount == 1:
+    elif pickupCount == 0:
         play(wavPath + 'system/dialtone.wav')
 
 def shouldRing():
