@@ -17,7 +17,7 @@ statusLed = LED(22)
 onTheHook = True
 isRinging = False
 
-wavPath = '/home/pi/batphone/wavs/'
+wavPath = '/opt/batphone/wavs/'
 wavFiles = [f for f in listdir(wavPath + 'answers/') if isfile(join(wavPath + 'answers/', f))]
 
 cron = sched.scheduler(time, sleep)
@@ -56,7 +56,7 @@ def shouldRing():
     """Checks if the phone should ring or not."""
     return onTheHook
 
-def ring(job): 
+def ring(job):
     """Rings the phone by flashing the light."""
     global isRinging
     log("Possibly ringining..")
@@ -91,7 +91,7 @@ statusLed.on()
 play(wavPath + 'system/batman_theme.wav')
 
 reciever.when_pressed = pickedUp # Weird flipped logic because of the switch I hacked out of the original phone.
-reciever.when_released = hungUp 
+reciever.when_released = hungUp
 
 cron.enter(10, 1, ring, (cron,)) # After boot, ring right away for quick testing.
 cron.run()
