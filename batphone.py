@@ -50,6 +50,7 @@ def pickedUp():
     global lastPickup
     global pickupCount
     global devMode
+    global cron
 
     onTheHook = False
 
@@ -67,6 +68,7 @@ def pickedUp():
             devMode = False
         else:
             devMode = True
+            cron.enter(11, 1, ring, (cron,))
         play(wavPath + 'system/dev_mode_toggle.wav')
     elif pickupCount == 5:
         log("Shutting down...")
@@ -76,7 +78,7 @@ def pickedUp():
         isRinging = False
         sleep(1)
         play(None)
-    else:
+    elif pickupCount == 1:
         play(wavPath + 'system/dialtone.wav')
 
 def shouldRing():
