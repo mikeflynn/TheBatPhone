@@ -49,6 +49,7 @@ def pickedUp():
     global isRinging
     global lastPickup
     global pickupCount
+    global cron
 
     onTheHook = False
 
@@ -61,6 +62,7 @@ def pickedUp():
     log("Pickup Count: " + str(pickupCount))
 
     if pickupCount == 3: # 3 clicks => Schedule a ring.
+        log("Scheduling ring...")
         cron.enter(10, 1, ring, (cron,))
     elif pickupCount == 5:
         log("Shutting down...")
@@ -75,7 +77,7 @@ def pickedUp():
 
 def shouldRing():
     """Checks if the phone should ring or not."""
-    return onTheHook
+    return onTheHook and not(isRinging)
 
 def ring(job):
     """Rings the phone by flashing the light."""
@@ -92,7 +94,7 @@ def ring(job):
             if onTheHook == False:
                 break;
             sleep(3)
-    isRinging = False
+        isRinging = False
 
 def play(file):
     """Batman picks up; Play the audio."""
