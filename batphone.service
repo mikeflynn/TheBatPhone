@@ -1,0 +1,13 @@
+# Put this file here: /etc/systemd/system/batphone.Service
+
+[Unit]
+Description=Bat Phone
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/usr/bin/python3 /opt/batphone/batphone.py
+
+[Install]
+WantedBy=multi-user.target

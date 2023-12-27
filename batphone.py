@@ -83,6 +83,7 @@ def play(file):
         sound = mixer.Sound(answer)
     else:
         sound = mixer.Sound(file)
+    sound.set_volume(0.75)
     sound.play()
 
 # Main
