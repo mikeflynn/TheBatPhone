@@ -28,11 +28,8 @@ mixer.init()
 
 # Functions
 
-def getRingInterval(devMode):
-    if devMode:
-        return 30
-    else:
-        return (60 * 5) + random.randint(-120, 120)
+def getRingInterval():
+    return 30
 
 def log(msg):
     if devMode:
@@ -50,7 +47,6 @@ def pickedUp():
     global lastPickup
     global pickupCount
     global devMode
-    global cron
 
     onTheHook = False
 
@@ -69,8 +65,6 @@ def pickedUp():
             devMode = False
         else:
             devMode = True
-            sleep(11)
-            ring(cron)
     elif pickupCount == 5:
         log("Shutting down...")
         play(wavPath + 'system/shutdown.wav')
@@ -84,13 +78,22 @@ def pickedUp():
 
 def shouldRing():
     """Checks if the phone should ring or not."""
-    return onTheHook and not(isRinging)
+    global devMode
+
+    onSchedule = False
+    if devMode:
+        onSchedule = True
+    else:
+        if random.randint(0, 100) % 4 == 0:
+            onSchedule = True
+
+    return onSchedule and onTheHook and not(isRinging)
 
 def ring(job):
     """Rings the phone by flashing the light."""
     global isRinging
     log("Possibly ringining..")
-    cron.enter(getRingInterval(devMode), 1, ring, (job,))
+    cron.enter(getRingInterval(), 1, ring, (job,))
     if shouldRing():
         log("Ringing!")
         isRinging = True
