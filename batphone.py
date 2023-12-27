@@ -49,7 +49,7 @@ def pickedUp():
     global isRinging
     global lastPickup
     global pickupCount
-    global cron
+    global devMode
 
     onTheHook = False
 
@@ -62,8 +62,12 @@ def pickedUp():
     log("Pickup Count: " + str(pickupCount))
 
     if pickupCount == 3: # 3 clicks => Schedule a ring.
-        log("Scheduling ring...")
-        cron.enter(10, 1, ring, (cron,))
+        log("Toggle Dev Mode")
+        if devMode:
+            devMode = False
+        else:
+            devMode = True
+        play(wavPath + 'system/dev_mode_toggle.wav')
     elif pickupCount == 5:
         log("Shutting down...")
         play(wavPath + 'system/shutdown.wav')
