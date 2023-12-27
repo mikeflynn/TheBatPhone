@@ -5,6 +5,7 @@ from pygame import mixer
 from signal import pause
 from os import listdir
 from os.path import isfile, join
+import subprocess
 
 # Init
 
@@ -16,6 +17,8 @@ statusLed = LED(22)
 
 onTheHook = True
 isRinging = False
+lastPickup = 0
+pickupCount = 0
 
 wavPath = '/opt/batphone/wavs/'
 wavFiles = [f for f in listdir(wavPath + 'answers/') if isfile(join(wavPath + 'answers/', f))]
@@ -44,8 +47,26 @@ def pickedUp():
     log("Picked Up")
     global onTheHook
     global isRinging
+    global lastPickup
+    global pickupCount
+
     onTheHook = False
-    if isRinging == True:
+
+    if lastPickup < (time() - 5):
+        pickupCount = 0
+    else:
+        pickupCount += 1
+
+    lastPickup = time()
+    log("Pickup Count: " + str(pickupCount))
+
+    if pickupCount == 3: # 3 clicks => Schedule a ring.
+        cron.enter(10, 1, ring, (cron,))
+    elif pickupCount == 5:
+        log("Shutting down...")
+        play(wavPath + 'system/shutdown.wav')
+        subprocess.call(['shutdown', '-h', 'now'], shell=False)
+    elif isRinging == True:
         isRinging = False
         sleep(1)
         play(None)
