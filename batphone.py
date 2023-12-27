@@ -64,14 +64,13 @@ def pickedUp():
 
     if pickupCount == 3: # 3 clicks => Schedule a ring.
         log("Toggle Dev Mode")
+        play(wavPath + 'system/dev_mode_toggle.wav')
         if devMode:
             devMode = False
         else:
             devMode = True
             sleep(11)
             ring(cron)
-
-        play(wavPath + 'system/dev_mode_toggle.wav')
     elif pickupCount == 5:
         log("Shutting down...")
         play(wavPath + 'system/shutdown.wav')
