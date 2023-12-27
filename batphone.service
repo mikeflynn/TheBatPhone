@@ -1,4 +1,7 @@
-# Put this file here: /etc/systemd/system/batphone.Service
+# Put this file here: /etc/systemd/system/batphone.service
+# Initialize: sudo systemctl enable batphone.service
+# Start: sudo systemctl start batphone.service
+# Stop: sudo systemctl stop batphone.service
 
 [Unit]
 Description=Bat Phone
