@@ -67,8 +67,9 @@ def pickedUp():
         if devMode:
             devMode = False
         else:
-            cron.enter(11, 1, ring, (cron,))
             devMode = True
+            sleep(11)
+            ring(cron)
 
         play(wavPath + 'system/dev_mode_toggle.wav')
     elif pickupCount == 5:
